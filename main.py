@@ -1,12 +1,23 @@
 import streamlit as st
+import sys
+import os
+
+# --- 🚨 SİHİRLİ DOKUNUŞ: Python'a Yolu Gösteriyoruz ---
+# Bu kod, uygulamanın çalıştığı ana klasörü Python'un "Arama Listesi"ne ekler.
+current_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(current_dir)
 
 # --- Modülleri İçe Aktar ---
-from backend.data_loader import DataLoader
-from backend.indicators import TechnicalEngine
-from ai_engine.predictor import AIPredictor
-from ai_engine.risk import RiskManager
-from frontend.styles import load_css
-from frontend.interface import render_sidebar, render_landing_page, render_dashboard, render_risk_page
+try:
+    from backend.data_loader import DataLoader
+    from backend.indicators import TechnicalEngine
+    from ai_engine.predictor import AIPredictor
+    from ai_engine.risk import RiskManager
+    from frontend.styles import load_css
+    from frontend.interface import render_sidebar, render_landing_page, render_dashboard, render_risk_page
+except ModuleNotFoundError as e:
+    st.error(f"HATA: Modüller bulunamadı! Lütfen dosya yapısını kontrol edin. Detay: {e}")
+    st.stop()
 
 # --- Sayfa Ayarı ---
 st.set_page_config(page_title="AI Finans Pro Modular", layout="wide")
